@@ -22,12 +22,15 @@ spec:
         # This app will run just fine even if Prometheus is not running.
         prometheus.io/scrape: "true"
         prometheus.io/path: "/actuator/prometheus"
-        prometheus.io/port:  "8080"
+        prometheus.io/port: "8080"
     spec:
+      # Make sure to update this property, and use your own secret to pull the image
+      imagePullSecrets:
+        - name: harbor-registry-secret
       containers:
         - name: app
-          # Make sure to update this property, and use your own Docker image.
-          image: alexandreroman/spring-on-k8s:latest
+          # Make sure to update this property, and use your own container image.
+          image: <registry-adr>/<project>/spring-on-k8s:latest
           imagePullPolicy: IfNotPresent
           resources:
             limits:
